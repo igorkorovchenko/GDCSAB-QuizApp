@@ -13,14 +13,18 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    QuestionSet questionSet;
+    private QuestionSet questionSet;
+
+    private TextView tvScore;
+    private ScrollView container;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ScrollView container = findViewById(R.id.container);
+        tvScore = findViewById(R.id.tvScore);
+        container = findViewById(R.id.container);
         String jsonQuestions =
                 "{\n" +
                 "  \"1\": {\n" +
@@ -118,8 +122,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void checkAnswers(View view) {
         double score = questionSet.getCommonScore();
-        TextView tvScore = findViewById(R.id.tvScore);
-        String result = "Score: " + String.valueOf(score);
+        String result = getString(R.string.score_prefix_text) + String.valueOf(score);
         tvScore.setText(result);
     }
 }

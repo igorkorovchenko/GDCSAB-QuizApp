@@ -3,6 +3,7 @@
     <string name="check_button">Check</string>
     <string name="submit_button">Submit</string>
     <string name="score_default_text">Score: 0</string>
+    <string name="score_prefix_text">Score:</string>
     <string name="email_subject">Result of survey</string>
     <string name="user_name">Igor</string>
 </resources>
