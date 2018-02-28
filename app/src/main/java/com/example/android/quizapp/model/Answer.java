@@ -268,17 +268,15 @@ class Answer extends View {
             answers.append(((EditText) viewsSet[0]).getText().toString()).append("\n");
         } else {
             ArrayList<Integer> arr = getCheckedAnswersIds();
-            for (View aViewsSet : viewsSet) {
+            for (int i = 1; i < viewsSet.length; i++) {
                 for (int j = 0; j < arr.size(); j++) {
-                    if (aViewsSet.getId() == arr.get(j)) {
+                    if (viewsSet[i].getId() == arr.get(j)) {
                         switch (type) {
                             case QUESTION_TYPE_CHECK_BOX:
-                                if (aViewsSet.getClass().toString().equals("CheckBox"))
-                                    answers.append(((CheckBox) aViewsSet).getText().toString()).append("\n");
+                                answers.append(((CheckBox) viewsSet[i]).getText().toString()).append("\n");
                                 break;
                             case QUESTION_TYPE_RADIO_BOX:
-                                if (aViewsSet.getClass().toString().equals("RadioButton"))
-                                    answers.append(((RadioButton) aViewsSet).getText().toString()).append("\n");
+                                answers.append(((RadioButton) viewsSet[i]).getText().toString()).append("\n");
                                 break;
                         }
                     }
