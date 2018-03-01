@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ScrollView;
+import android.widget.Toast;
+
 import com.example.android.quizapp.R;
 import com.example.android.quizapp.model.QuestionSet;
 
@@ -65,7 +67,7 @@ public class MainActivity extends Activity {
         super.onRestoreInstanceState(savedInstanceState);
         mIsChecked = savedInstanceState.getByte(STATE_CHECKED);
         if (mIsChecked != 0) {
-            checkAnswers(findViewById(R.id.btnCheck));
+            checkAnswers(findViewById(R.id.btn_check));
         }
     }
 
@@ -90,7 +92,7 @@ public class MainActivity extends Activity {
             startActivity(intent);
         }
         view.setVisibility(View.GONE);
-        ((Button) findViewById(R.id.btnCheck)).setText(R.string.check_button);
+        ((Button) findViewById(R.id.btn_check)).setText(R.string.check_button);
     }
 
     /**
@@ -102,12 +104,16 @@ public class MainActivity extends Activity {
         if (((Button) view).getText().equals(getResources().getString(R.string.reset_button))) {
             mQuestionSet.resetQuestions();
             ((Button) view).setText(R.string.check_button);
-            (findViewById(R.id.btnSubmit)).setVisibility(View.GONE);
+            (findViewById(R.id.btn_submit)).setVisibility(View.GONE);
             mIsChecked = 0;
         } else {
-            (findViewById(R.id.btnSubmit)).setVisibility(View.VISIBLE);
+            (findViewById(R.id.btn_submit)).setVisibility(View.VISIBLE);
             ((Button) view).setText(R.string.reset_button);
             setAnswersCountInTitle();
+            String toastMessage =
+                    getResources().getString(R.string.score_prefix_text)
+                    + mQuestionSet.getCommonScore();
+            Toast.makeText(this, toastMessage, Toast.LENGTH_LONG).show();
             mIsChecked = 1;
         }
     }
@@ -117,8 +123,11 @@ public class MainActivity extends Activity {
      * Calculating total score of the user after survey
      */
     public void setAnswersCountInTitle() {
-        String title = getResources().getString(R.string.app_name)
-                + " - Score: " + mQuestionSet.getCommonScore()
+        String title =
+                getResources().getString(R.string.app_name)
+                + " - "
+                + getResources().getString(R.string.score_prefix_text)
+                + mQuestionSet.getCommonScore()
                 + " (" + mQuestionSet.getPassedQuestionCount()
                 + " / " + mQuestionSet.getQuestionCount()
                 + ")";
